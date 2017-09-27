@@ -1,29 +1,31 @@
 package pl.andrzejjozefow.jimispring.salesdocuments.invoices;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InvoiceService {
 
-  private List<Invoice> invoices = new ArrayList<>(Arrays.asList(
-      new Invoice("biedronka", "masło extra", 123344, 1234565) ,
-      new Invoice("lidl", "masło extra", 123344, 1234565),
-      new Invoice("zabka", "masło extra", 123344, 1234565)
-  ));
+  @Autowired
+  private InvoiceRepository invoiceRepository;
+
 
   public List<Invoice> getAllInvoices(){
+    List<Invoice> invoices = new ArrayList<>();
+    invoiceRepository.findAll()
+        .forEach(invoices::add);
     return invoices;
   }
 
-  public Invoice getInvoice(String id){
-    return invoices.stream().filter(t -> t.getNabywca().equals(id)).findFirst().get();
+  public Invoice getInvoice(Integer id){
+    return invoiceRepository.findOne(id);
   }
 
-  public void addInvoice(Invoice topic) {
-    invoices.add(topic);
+  public void addInvoice(Invoice invoice) {
+
+    invoiceRepository.save(invoice);
   }
 
 }

@@ -19,9 +19,9 @@ public class InvoiceController {
     return invoiceService.getAllInvoices();
   }
 
-  @RequestMapping("/invoices/{nabywca}")
-  public Invoice getInvoice(@PathVariable String nabywca) {
-    return invoiceService.getInvoice(nabywca);
+  @RequestMapping("/invoices/{id}")
+  public Invoice getInvoice(@PathVariable Integer id) {
+    return invoiceService.getInvoice(id);
   }
 
   @RequestMapping(method = RequestMethod.POST, value = "/topics")
